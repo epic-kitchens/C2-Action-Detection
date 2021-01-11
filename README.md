@@ -48,7 +48,7 @@ The action detection baseline used for the experiments is composed of two module
 In the following, we provide instructions to train/test each of these modules.
 
 ### Action proposals generator
-We used the PyTorch implementation provided in https://github.com/JJBOY/BMN-Boundary-Matching-Network. We modified the original implementation to allow training and testing on EPIC-KITCHENS-100. We provide our modified version in the `BMN` directory. Before continuing, change directory with:
+We used the PyTorch implementation available at https://github.com/JJBOY/BMN-Boundary-Matching-Network. We modified the original implementation to allow training and testing on EPIC-KITCHENS-100. We provide our modified version in the `BMN` directory. Before continuing, change directory with:
 
 ```
 cd BMNProposalGenerator
@@ -132,7 +132,7 @@ python libs/bmn-fork/main.py \
     --observation_window window_size
 ```
 
-Note that the if `data/ek100/video_features` is not empty, the code will try to load features form there before loading the lmdb datasets. It could be a good idea to empty the `video_features` directory before training.
+Note that the if `data/ek100/video_features` is not empty, the code will try to load features form there before loading the lmdb datasets. It could be a good idea to empty the `video_features` directory before training if training parameters have been chenged.
 
 ### Action Proposals Classifier
 We provide code to classify action proposals which is based on https://github.com/epic-kitchens/epic-kitchens-slowfast. To use the action proposal classifier, you will need to first install the epic-kitchens-slowfast codebase following the instructions available at https://github.com/epic-kitchens/epic-kitchens-slowfast. After installing, you should add the repository to your PYTHONPATH with:
