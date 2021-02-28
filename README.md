@@ -122,7 +122,7 @@ Mind that the parameters have been tuned to train the model on 4 V100 (16 GB) GP
 If you want to train with a non-default observation window, you first have to download the full set of features. Then, you have to train the model specifying the locations of the rgb and flow lmdb files:
 
 ```
-python libs/bmn-fork/main.py \
+python main.py \
     data/ek100/ \
     models/ek100/bmn/ \
     output/ek100/ \
