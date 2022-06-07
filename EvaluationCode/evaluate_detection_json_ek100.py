@@ -11,6 +11,7 @@ from typing import List
 from typing import Tuple
 from typing import Dict
 from typing import Iterable
+from typing import Union
 
 _MINUTES_TO_SECONDS = 60
 _HOURS_TO_SECONDS = 60 * 60
@@ -415,9 +416,23 @@ class InvalidScoreException(ValidationException):
     def __str__(self):
         return (
             "Could not deserialize {} class '{}' score to float from segment {},"
-            " it's value was '{}'"
+            " its value was '{}'"
         ).format(self.task, self.cls, self.uid, self.score)
 
+class InvalidValueException(ValidationException):
+    def __init__(self, v: Union[str, float], k: str, i: int, vid: str) -> None:
+        self.v = v
+        self.k = k
+        self.i = i
+        self.vid = vid
+
+    def __str__(self):
+        return f'Found invalid value {self.v} for key "{self.k}" in entry {self.i} of video {self.vid}'
+
+        return (
+            "Could not deserialize {} class '{}' score to float from segment {},"
+            " its value was '{}'"
+        ).format(self.task, self.cls, self.uid, self.score)
 
 class InvalidSLSException(ValidationException):
     def __init__(self, pt: int, tl: int, td: int):
@@ -495,7 +510,7 @@ def validate_submission(
             raise MissingPropertyException(task)
 
     for vid in submission['results'].keys():
-        for entry in submission['results'][vid]:
+        for i, entry in enumerate(submission['results'][vid]):
             for task in ['verb', 'noun', 'action']:
                 validate_task_entry(entry, task)
             if "score" not in entry:
@@ -504,8 +519,17 @@ def validate_submission(
                 raise MissingPropertyException("segment")
             if len(entry['segment'])!=2:
                 raise InvalidNumberOfTimestampsException(2, len(entry['segment']))
+            for k,v in entry.items():
+                isnan = False
+                if k=='segment':
+                    isnan = np.isnan(v).any()
+                elif isinstance(v, float):
+                    isnan = np.isnan(v)
+                else:
+                    isnan = False
 
-
+                if isnan:
+                    raise InvalidValueException(v, k, i, vid)
 
 def validate_submission_challenge(submission, supported_challenges):
     if "challenge" not in submission.keys():
@@ -559,6 +583,8 @@ def main(args):
     validate_submission(
         submission, args.verb_count, args.noun_count, supported_challenges='action_detection'
     )
+
+    print('Submission correctly validated')
 
     def dump(results, maps, task):
         for i, map in enumerate(maps):
