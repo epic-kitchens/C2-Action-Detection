@@ -429,11 +429,6 @@ class InvalidValueException(ValidationException):
     def __str__(self):
         return f'Found invalid value {self.v} for key "{self.k}" in entry {self.i} of video {self.vid}'
 
-        return (
-            "Could not deserialize {} class '{}' score to float from segment {},"
-            " its value was '{}'"
-        ).format(self.task, self.cls, self.uid, self.score)
-
 class InvalidSLSException(ValidationException):
     def __init__(self, pt: int, tl: int, td: int):
         """
