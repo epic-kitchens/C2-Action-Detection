@@ -93,6 +93,9 @@ class ANETdetection(object):
         # Import ground truth and predictions.
         self.ground_truth = load_gt_segmentations(annotations, label=label, num_nouns=num_nouns)
         self.prediction = load_predicted_segmentations(submission, label=label, num_nouns=num_nouns)
+                     
+        # Remove predictions of non-existing labels, this prevents double mapping of labels not in the ground truth
+        self.prediction = self.prediction[self.prediction['label'].isin(self.ground_truth['label'].unique())]
 
         self.activity_index = {j: i for i, j in enumerate(sorted(self.ground_truth['label'].unique()))}
 
