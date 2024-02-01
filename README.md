@@ -4,7 +4,11 @@
 To participate and submit to this challenge, register at the [Action Detection Codalab Challenge](https://codalab.lisn.upsaclay.fr/competitions/707).
 
 ## Evaluation Code
-This repository contains the official code to evaluate egocentric action detection methods on the EPIC-KITCHENS-100 validation set. Parts of the evaluation code have been adapted from https://github.com/activitynet/ActivityNet/blob/master/Evaluation/eval_detection.py. To use this code, move to the `EvaluationCode` directory:
+This repository contains the official code to evaluate egocentric action detection methods on the EPIC-KITCHENS-100 validation set. Parts of the evaluation code have been adapted from https://github.com/activitynet/ActivityNet/blob/master/Evaluation/eval_detection.py. 
+
+Note that on 01/02/2024 the evaluatiuon code has been updated to fix some minor errors. As a result re-evaluating the same submission may lead to minor changes in performance evaluation.
+
+To use this code, move to the `EvaluationCode` directory:
 
 ```
 cd EvaluationCode
