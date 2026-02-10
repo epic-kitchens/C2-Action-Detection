@@ -1,7 +1,7 @@
 # C2-Action-Detection
 
 ## Challenge
-To participate and submit to this challenge, register at the [Action Detection Codabench Challenge](https://www.codabench.org/competitions/13820).
+To participate and submit to this challenge, register at the [Action Detection Codabench Challenge](https://www.codabench.org/competitions/13830).
 
 ## Evaluation Code
 This repository contains the official code to evaluate egocentric action detection methods on the EPIC-KITCHENS-100 validation set. Parts of the evaluation code have been adapted from https://github.com/activitynet/ActivityNet/blob/master/Evaluation/eval_detection.py. 
